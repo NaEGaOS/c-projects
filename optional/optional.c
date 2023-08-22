@@ -1,7 +1,7 @@
 #include <stdio.h>
+#include <string.h>
 
 void compare_values(int x, int y){
-    // assuming x != y
     int largest = x > y ? x : y;  // ternary
     printf("%d\n", largest);
 }
@@ -29,20 +29,18 @@ void my_numbers(int startnum, int endnum){
 //int my_log2(unsigned int n){}
 
 void reverse_string(char string[]){
-    int string_length = sizeof(string);
+    int string_length = strlen(string);
     char new_string[100];
     for (int i = 0; i < string_length; i++){
-        new_string[i] = string[string_length];
-        string_length--;
+        new_string[i] = string[string_length - 1 - i];
     }
     printf("%s\n", new_string);
-    printf("done\n");
 }
 
 void main(){
     /*
-    int x = 5;
-    int y = 10;
+    int x = 10;
+    int y = 5;
     compare_values(x, y);
     int num_lines = 4;
     my_triangles(num_lines);
@@ -50,8 +48,43 @@ void main(){
     int prime_factor = 5;
     printf("%d\n", my_prime_factor(number, prime_factor));
     int startnum = 1;
-    int endnum = 16;
+    int endnum = 5;
     my_numbers(startnum, endnum);
+    reverse_string("A string");
     */
-   reverse_string("abcd");
+    char funcs[5][50] = {"compare_values", "my_triangles", "my_prime_factor", "my_numbers", "reverse_string"};
+    char selected[50];
+    printf("enter which function to run?\n");
+    for (int i = 0; i < 5; i++){
+        printf("    %s\n", funcs[i]);
+    }
+    scanf("%s", selected);
+    // because c doesn't allow switches with strings
+   if (strcmp(selected,"compare_values") == 0){
+        int num1;
+        int num2;
+        printf("enter num 1: ");
+        scanf("%d", &num1);
+        printf("enter num 2: ");
+        scanf("%d", &num2);
+        compare_values(num1, num2);
+    }
+    else if (strcmp(selected, "my_triangles") == 0){
+        int num_lines;
+        printf("enter number of lines: ");
+        scanf("%d", &num_lines);
+        my_triangles(num_lines);
+    }
+    else if (strcmp(selected, "my_prime_factor") == 0){
+
+    }
+    else if (strcmp(selected, "my_numbers") == 0){
+
+    }
+    else if (strcmp(selected, "reverse_string") == 0){
+
+    }
+    else{
+        main();
+    }
 }
