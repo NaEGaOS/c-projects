@@ -28,9 +28,19 @@ void my_numbers(int startnum, int endnum){
 
 //int my_log2(unsigned int n){}
 
-
+void reverse_string(char string[]){
+    int string_length = sizeof(string);
+    char new_string[100];
+    for (int i = 0; i < string_length; i++){
+        new_string[i] = string[string_length];
+        string_length--;
+    }
+    printf("%s\n", new_string);
+    printf("done\n");
+}
 
 void main(){
+    /*
     int x = 5;
     int y = 10;
     compare_values(x, y);
@@ -42,4 +52,6 @@ void main(){
     int startnum = 1;
     int endnum = 16;
     my_numbers(startnum, endnum);
+    */
+   reverse_string("abcd");
 }
