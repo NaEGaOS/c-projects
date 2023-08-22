@@ -38,27 +38,13 @@ void reverse_string(char string[]){
 }
 
 void main(){
-    /*
-    int x = 10;
-    int y = 5;
-    compare_values(x, y);
-    int num_lines = 4;
-    my_triangles(num_lines);
-    int number = 10;
-    int prime_factor = 5;
-    printf("%d\n", my_prime_factor(number, prime_factor));
-    int startnum = 1;
-    int endnum = 5;
-    my_numbers(startnum, endnum);
-    reverse_string("A string");
-    */
-    char funcs[5][50] = {"compare_values", "my_triangles", "my_prime_factor", "my_numbers", "reverse_string"};
-    char selected[50];
+    char funcs[5][20] = {"compare_values", "my_triangles", "my_prime_factor", "my_numbers", "reverse_string"};
+    char selected[100];
     printf("enter which function to run?\n");
     for (int i = 0; i < 5; i++){
         printf("    %s\n", funcs[i]);
     }
-    scanf("%s", selected);
+    scanf("%s", &selected);
     // because c doesn't allow switches with strings
    if (strcmp(selected,"compare_values") == 0){
         int num1;
@@ -76,13 +62,28 @@ void main(){
         my_triangles(num_lines);
     }
     else if (strcmp(selected, "my_prime_factor") == 0){
-
+        int number;
+        int prime_factor;
+        printf("enter number: ");
+        scanf("%d", &number);
+        printf("enter prime factor: ");
+        scanf("%d", &prime_factor);
+        printf("%d\n", my_prime_factor(number, prime_factor));
     }
     else if (strcmp(selected, "my_numbers") == 0){
-
+        int startnum;
+        int endnum;
+        printf("enter startnumber: ");
+        scanf("%d", &startnum);
+        printf("enter endnumber: ");
+        scanf("%d", &endnum);
+        my_numbers(startnum, endnum);
     }
     else if (strcmp(selected, "reverse_string") == 0){
-
+        char string[100];
+        printf("enter string: ");
+        scanf(" %[^\n]s", &string);
+        reverse_string(string);
     }
     else{
         main();
