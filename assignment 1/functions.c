@@ -26,7 +26,17 @@ void my_numbers(int startnum, int endnum){
     }
 }
 
-//int my_log2(unsigned int n){}
+// Calculates log2 of an unsigned integer n using the following approach:
+// Find the most significant set bit in n and return the position of this bit.
+// For example, if n is 17 (0b10001), the function should return 4.
+void my_log2(unsigned int num){
+    int count = 0;
+    while (num != 1){
+        num = num >> 1;
+        count++;
+    }
+    printf("%d\n", count);
+}
 
 void reverse_string(char string[]){
     int string_length = strlen(string);
@@ -38,10 +48,10 @@ void reverse_string(char string[]){
 }
 
 void main(){
-    char funcs[5][20] = {"compare_values", "my_triangles", "my_prime_factor", "my_numbers", "reverse_string"};
+    char funcs[6][20] = {"compare_values", "my_triangles", "my_prime_factor", "my_numbers", "my_log2", "reverse_string"};
     char selected[100];
     printf("enter which function to run?\n");
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < 6; i++){
         printf("    %s\n", funcs[i]);
     }
     scanf("%s", &selected);
@@ -78,6 +88,12 @@ void main(){
         printf("enter endnumber: ");
         scanf("%d", &endnum);
         my_numbers(startnum, endnum);
+    }
+    else if (strcmp(selected, "my_log2") == 0){
+        unsigned int num;
+        printf("enter num: ");
+        scanf("%d", &num);
+        my_log2(num);
     }
     else if (strcmp(selected, "reverse_string") == 0){
         char string[100];
