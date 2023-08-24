@@ -26,9 +26,6 @@ void my_numbers(int startnum, int endnum){
     }
 }
 
-// Calculates log2 of an unsigned integer n using the following approach:
-// Find the most significant set bit in n and return the position of this bit.
-// For example, if n is 17 (0b10001), the function should return 4.
 void my_log2(unsigned int num){
     int count = 0;
     while (num != 1){
