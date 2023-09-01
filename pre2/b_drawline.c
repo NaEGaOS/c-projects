@@ -10,14 +10,17 @@ void b_draw_line(SDL_Surface *surface, int x1, int y1, int x2, int y2, unsigned 
     // point for the line 
 
     //set_pixel(surface, x1, y1, color);
-    /*
+    
     int delta_x = x2 - x1;
     int delta_y = y2 - y1;
-    int step_x = (delta_x >= 0) ? 1 : -1;  // is it even  constant?
-    int step_y = (delta_y >= 0) ? 1 : -1;  // is it even  constant?
-    //printf("%d\n%d\n\n", step_x, step_y);
-    for (int i = x1; i < x1 + delta_x; i += step_x){
-        set_pixel(surface, i, y1, color);
+    int steps = (abs(delta_x) > abs(delta_y)) ? abs(delta_x) : abs(delta_y);
+    float increment_x = delta_x / (float) steps;
+    float increment_y = delta_y / (float) steps;
+    float x = x1;
+    float y = y1;
+    for (int i = 0; i <= steps; i++){
+        set_pixel(surface, (int)x, (int)y, color);
+        x += increment_x;
+        y += increment_y;
     }
-    */
 }

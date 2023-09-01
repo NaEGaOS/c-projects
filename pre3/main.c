@@ -1,36 +1,57 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <assert.h>
 #include <SDL.h>
 #include "drawline.h"
-#include "face.h"
+#include "triangle.h"
+#include "teapot_data.h"
 
-/* 
- * Set pixel (x, y) on the surface to the given color
- */
-void set_pixel(SDL_Surface *surface, int x, int y, unsigned int color)
-{
-    Uint32 *pixels = surface->pixels,
-           idx = x + y*surface->w;
+triangle_t exampletriangle1 = {
+    .x1 = 100,
+    .y1 = 200,
+    .x2 = 200,
+    .y2 = 100,
+    .x3 = 300,
+    .y3 = 300,
+    .fillcolor = 0xffff0000,
+};
 
-    /* Verify that pixel is inside of surface */
-    if (x >= surface->w || x < 0 ||
-        y >= surface->h || y < 0) {
-         fprintf(stderr, "Plotting pixel outside of surface, check translation or scale\n");
-         return;
-    }
+triangle_t exampletriangle2 = {
+    .x1 = 50,
+    .y1 = 150,
+    .x2 = 150,
+    .y2 = 50,
+    .x3 = 250,
+    .y3 = 250,
+    .fillcolor = 0xffffff00,
+};
 
-    /* Set pixel */
-    pixels[idx] = color;
-}
+triangle_t exampletriangle3 = {
+    .x1 = 350,
+    .y1 = 350,
+    .x2 = 460,
+    .y2 = 300,
+    .x3 = 500,
+    .y3 = 400,
+    .fillcolor = 0xff00ff00,
+};
+
+triangle_t exampletriangle4 = {
+    .x1 = 350,
+    .y1 = 100,
+    .x2 = 450,
+    .y2 = 50,
+    .x3 = 500,
+    .y3 = 200,
+    .fillcolor = 0xff0000ff,
+};
 
 int main(void)
 {
     const size_t bufsize = 100;
     
     /* Change the screen width and height to your own liking */
-    const int screen_w = 1024;
-    const int screen_h = 768;
+    const int screen_w = 1600;
+    const int screen_h = 900;
 
     char errmsg[bufsize];
     int done;
@@ -45,7 +66,7 @@ int main(void)
     }
     
     /* Create a 1600x900 window */
-    window = SDL_CreateWindow("The Amazing Line",
+    window = SDL_CreateWindow("The Amazing Teapot",
                               SDL_WINDOWPOS_UNDEFINED,
                               SDL_WINDOWPOS_UNDEFINED,
                               screen_w, screen_h,
@@ -62,32 +83,29 @@ int main(void)
         goto error;
     }
 
-    for(int i = 0; i < HEAD_LINES; i++) {
-        color_t color = colors[i % NUM_COLORS];
-        a_draw_line(surface, 
-                    head[i].x1, 
-                    head[i].y1, 
-                    head[i].x2, 
-                    head[i].y2, 
-                    SDL_MapRGB(surface->format,
-                                color.red,
-                                color.green,
-                                color.blue));
-    }
-    for(int i = 0; i < FACE_LINES; i++) {
-        color_t color = colors[i % NUM_COLORS];
-        b_draw_line(surface, 
-                    face[i].x1, 
-                    face[i].y1, 
-                    face[i].x2, 
-                    face[i].y2, 
-                    SDL_MapRGB(surface->format,
-                                color.red,
-                                color.green,
-                                color.blue));
-    }
+    /*
+     * The teapot is represented as an array of triangle data structures.
+     * To draw it on the screen you need to traverse the 'teapot_model' array
+     * and call draw_triangle for each triangle (teapot_data.h contains the array).  
+     * The definition TEAPOT_NUMTRIANGLES specifies the number of triangles in the array.
+     * The teapot model is contained within a 1000x1000 box (coordinates
+     * from -500 to 500 on the x and y axis).  Remember to translate the
+     * model to the middle of the screen before drawing it (initialize 
+     * triangle->tx and triangle->ty with the appropriate coordinates).
+     */
     
+    /*
+     * Draw some example triangles on the screen. 
+     * Use these examples in the beginning.
+     *
+     * Remove these and draw the triangles that represent he teapot
+     */
+    a_draw_triangle(surface, &exampletriangle1);
+    b_draw_triangle(surface, &exampletriangle2);
+    a_draw_triangle(surface, &exampletriangle3);
+    b_draw_triangle(surface, &exampletriangle4);
 
+	
     /* Wait for the user to exit the application */
     done = 0;
     while (!done) {
@@ -104,7 +122,7 @@ int main(void)
                     if (event.window.event == SDL_WINDOWEVENT_SHOWN)
                         SDL_SetWindowPosition(window, 50, 50);
                     break;
-            }           
+            }          
         }
     }   
     
